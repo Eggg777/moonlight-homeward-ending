@@ -3,9 +3,9 @@
   "completionText": "冒險完成",
   "interaction": "玩家每點一下進到下一張，最後一張按完後顯示完成文字。",
   "style": [
-    "童話繪本插畫風",
-    "彩色蠟筆質感",
-    "圓潤可愛比例",
+    "經典日式手繪動畫感",
+    "柔和水彩背景",
+    "溫暖自然與空氣感",
     "深夜童話感",
     "溫暖留白",
     "小小冒險後的疲憊與成長",
@@ -20,7 +20,7 @@
         "原來打倒最後的敵人後，世界不會立刻改變。",
         "只是風，終於慢了下來。"
       ],
-      "imagePrompt": "fairy tale picture book illustration, colorful crayon texture, rounded cute tiny adventurer standing alone in a wide grassy field after the final battle, defeated monster dissolving into glowing particles in the distance, soft moonlight fading into dawn blue sky, wind moving through grass, emotional silence, warm pastel color palette, visible paper grain, hand-drawn crayon strokes, cozy storybook illustration style, gentle lighting, slightly melancholic atmosphere, round soft character proportions, detailed background, 16:9 composition, PNG output"
+      "imagePrompt": "classic hand-painted Japanese fantasy animation ending scene, tiny adventurer standing alone in a wide grassy field after the final battle, defeated monster dissolving into glowing particles in the distance, soft moonlight fading into dawn blue sky, wind moving through grass, emotional silence, lush natural background, gentle watercolor and gouache texture, warm pastel color palette, soft cinematic lighting, slightly melancholic atmosphere, delicate hand-drawn linework, detailed background, 16:9 composition, PNG output"
     },
     {
       "id": 2,
@@ -29,7 +29,7 @@
         "比起勝利，大家更在意——",
         "今晚能不能一起回家。"
       ],
-      "imagePrompt": "warm emotional fairy tale picture book illustration, colorful crayon texture, small rounded adventurers resting together at an old wooden train platform at night, one character holding hot tea, another carrying snacks and treasure bags, distant train light approaching slowly, quiet companionship after a long journey, soft lantern glow, warm pastel beige and honey tones, cozy hand-drawn crayon style, visible paper grain, peaceful fantasy atmosphere, subtle emotional storytelling, cute round proportions, 16:9 composition, PNG output"
+      "imagePrompt": "warm emotional classic hand-painted Japanese fantasy animation scene, small adventurers resting together at an old wooden train platform at night, one character holding hot tea, another carrying snacks and treasure bags, distant train light approaching slowly, quiet companionship after a long journey, soft lantern glow, warm beige and honey tones, watercolor and gouache background texture, peaceful fantasy atmosphere, delicate hand-drawn linework, subtle emotional storytelling, 16:9 composition, PNG output"
     },
     {
       "id": 3,
@@ -38,7 +38,7 @@
         "有些冒險，不會被寫進傳說。",
         "但會留在某個普通的早晨裡。"
       ],
-      "imagePrompt": "peaceful fantasy town at sunrise, fairy tale picture book illustration, colorful crayon texture, tiny rounded adventurers walking through a quiet japanese street after their journey, small bakery lights turning on, sleepy cat stretching beside the road, morning mist and golden sunlight, long soft shadows on stone path, nostalgic and gentle atmosphere, hand-drawn crayon strokes, visible paper grain, warm pastel colors, cozy storybook aesthetic, round cute character proportions, 16:9 composition, PNG output"
+      "imagePrompt": "peaceful fantasy town at sunrise, classic hand-painted Japanese animation background, tiny adventurers walking through a quiet japanese street after their journey, small bakery lights turning on, sleepy cat stretching beside the road, morning mist and golden sunlight, long soft shadows on stone path, nostalgic and gentle atmosphere, watercolor and gouache texture, warm pastel colors, delicate hand-drawn linework, cozy cinematic story ending, 16:9 composition, PNG output"
     },
     {
       "id": 4,
@@ -47,7 +47,7 @@
         "辛苦了。",
         "這次真的，可以好好休息了。"
       ],
-      "imagePrompt": "small fantasy room at early morning, fairy tale picture book illustration, colorful crayon texture, exhausted rounded adventurer sleeping beside a wooden desk after returning home, weapon resting quietly against the wall, sunlight shining through window curtains, tiny glowing star-shaped stone on the desk, peaceful ending atmosphere, warm soft lighting, hand-drawn crayon strokes, visible paper grain, cozy and emotional mood, gentle pastel palette, storybook ending illustration, round cute softness, 16:9 composition, PNG output"
+      "imagePrompt": "small fantasy room at early morning, classic hand-painted Japanese fantasy animation ending scene, exhausted adventurer sleeping beside a wooden desk after returning home, weapon resting quietly against the wall, sunlight shining through window curtains, tiny glowing star-shaped stone on the desk, peaceful ending atmosphere, warm soft lighting, watercolor and gouache texture, delicate hand-drawn linework, cozy and emotional mood, gentle pastel palette, 16:9 composition, PNG output"
     }
   ]
 }
