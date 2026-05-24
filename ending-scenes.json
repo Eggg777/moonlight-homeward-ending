@@ -1,0 +1,52 @@
+{
+  "endingTitle": "月光下的歸途",
+  "completionText": "冒險完成",
+  "interaction": "玩家每點一下進到下一張，最後一張按完後顯示完成文字。",
+  "style": [
+    "日式溫暖手繪風",
+    "可愛卻帶點孤獨感",
+    "深夜童話感",
+    "溫暖留白",
+    "小小冒險後的疲憊與成長",
+    "不要熱血王道",
+    "不要說教"
+  ],
+  "scenes": [
+    {
+      "id": 1,
+      "scene": "戰鬥結束後，主角獨自站在安靜的草原。遠方巨大魔王已化成光點消散，天空從深夜慢慢轉成微亮的藍色。風吹動草地，世界突然變得很安靜。",
+      "dialogue": [
+        "原來打倒最後的敵人後，世界不會立刻改變。",
+        "只是風，終於慢了下來。"
+      ],
+      "imagePrompt": "cute japanese hand-drawn fantasy game ending scene, tiny adventurer standing alone in a wide grassy field after the final battle, defeated monster dissolving into glowing particles in the distance, soft moonlight fading into dawn blue sky, wind moving through grass, emotional silence, cinematic composition, warm pastel color palette, cozy watercolor texture, storybook illustration style, gentle lighting, slightly melancholic atmosphere, Studio Ghibli inspired, Chiikawa-like softness, detailed background, 16:9 composition, PNG output"
+    },
+    {
+      "id": 2,
+      "scene": "主角坐在木頭月台邊休息，小夥伴們抱著戰利品與點心陸續靠近。有人遞熱茶，有人安靜坐下，沒有人提剛剛的戰鬥。遠方有慢慢駛來的小火車燈光。",
+      "dialogue": [
+        "比起勝利，大家更在意——",
+        "今晚能不能一起回家。"
+      ],
+      "imagePrompt": "warm emotional hand-drawn anime scene, small adventurers resting together at an old wooden train platform at night, one character holding hot tea, another carrying snacks and treasure bags, distant train light approaching slowly, quiet companionship after a long journey, soft lantern glow, warm beige and brown tones, japanese cozy illustration style, watercolor texture, peaceful fantasy atmosphere, cinematic framing, subtle emotional storytelling, Chiikawa-inspired cute proportions, 16:9 composition, PNG output"
+    },
+    {
+      "id": 3,
+      "scene": "清晨的街道。小店開始亮燈，貓咪伸懶腰，早餐香氣飄出來。主角與夥伴走在安靜的巷子裡，背影被晨光拉得很長。",
+      "dialogue": [
+        "有些冒險，不會被寫進傳說。",
+        "但會留在某個普通的早晨裡。"
+      ],
+      "imagePrompt": "peaceful fantasy town at sunrise, tiny adventurers walking through a quiet japanese street after their journey, small bakery lights turning on, sleepy cat stretching beside the road, morning mist and golden sunlight, long shadows on stone path, nostalgic and gentle atmosphere, hand-painted watercolor style, warm pastel colors, emotional cinematic composition, cozy storybook aesthetic, soft anime illustration, Studio Ghibli inspired mood, 16:9 composition, PNG output"
+    },
+    {
+      "id": 4,
+      "scene": "主角回到自己的小房間，把武器輕輕放到牆邊。窗外晨光灑進來，桌上放著一顆旅途中撿到的小星星石頭。主角趴在桌上睡著。畫面慢慢變亮。",
+      "dialogue": [
+        "辛苦了。",
+        "這次真的，可以好好休息了。"
+      ],
+      "imagePrompt": "small fantasy room at early morning, exhausted adventurer sleeping beside a wooden desk after returning home, weapon resting quietly against the wall, sunlight shining through window curtains, tiny glowing star-shaped stone on the desk, peaceful ending atmosphere, warm soft lighting, japanese hand-drawn illustration style, watercolor texture, cozy and emotional mood, gentle pastel palette, cinematic framing, storybook ending illustration, Chiikawa-inspired softness, 16:9 composition, PNG output"
+    }
+  ]
+}

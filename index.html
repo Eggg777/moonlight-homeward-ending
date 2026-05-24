@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>月光下的歸途</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="ending" aria-label="結局過場：月光下的歸途">
+      <canvas id="scene" aria-hidden="true"></canvas>
+
+      <section class="story-panel" aria-live="polite">
+        <p class="chapter">月光下的歸途</p>
+        <h1 id="sceneTitle">第 1 張</h1>
+        <div id="dialogue" class="dialogue"></div>
+      </section>
+
+      <button id="nextButton" class="next-button" type="button" aria-label="下一張">
+        <span id="nextLabel">點一下，繼續</span>
+      </button>
+
+      <div id="complete" class="complete" hidden>
+        <span>冒險完成</span>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

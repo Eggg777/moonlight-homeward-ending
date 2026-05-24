@@ -1,0 +1,157 @@
+:root {
+  color-scheme: light;
+  --ink: #4e463f;
+  --paper: #fff8e7;
+  --panel: rgba(255, 249, 231, 0.84);
+  --line: rgba(107, 87, 68, 0.22);
+  --shadow: rgba(58, 48, 40, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  background: #f8edd5;
+  color: var(--ink);
+  font-family:
+    "Yu Gothic UI", "Microsoft JhengHei", "Hiragino Sans",
+    system-ui, sans-serif;
+}
+
+.ending {
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  min-height: 480px;
+  isolation: isolate;
+}
+
+#scene {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background: #c9dddf;
+}
+
+.story-panel {
+  position: absolute;
+  left: clamp(18px, 5vw, 72px);
+  right: clamp(18px, 45vw, 54%);
+  bottom: clamp(72px, 9vh, 112px);
+  padding: clamp(16px, 2.4vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 18px 40px var(--shadow);
+  backdrop-filter: blur(8px);
+}
+
+.chapter {
+  margin: 0 0 8px;
+  font-size: clamp(0.78rem, 1vw, 0.92rem);
+  letter-spacing: 0;
+  color: #8a6a54;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: clamp(1.2rem, 2.4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.dialogue {
+  display: grid;
+  gap: 8px;
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  line-height: 1.75;
+}
+
+.dialogue p {
+  margin: 0;
+}
+
+.next-button {
+  position: absolute;
+  right: clamp(18px, 4vw, 56px);
+  bottom: clamp(22px, 4vh, 44px);
+  min-width: 148px;
+  min-height: 46px;
+  border: 1px solid rgba(100, 79, 61, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 250, 235, 0.92);
+  color: var(--ink);
+  box-shadow: 0 12px 28px var(--shadow);
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+
+.next-button:focus-visible {
+  outline: 3px solid rgba(255, 205, 112, 0.8);
+  outline-offset: 4px;
+}
+
+.complete {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at center, rgba(255, 253, 236, 0.72), rgba(255, 253, 236, 0.24) 38%, rgba(255, 253, 236, 0) 70%),
+    rgba(255, 250, 230, 0.55);
+  animation: fadeIn 900ms ease both;
+}
+
+.complete[hidden] {
+  display: none;
+}
+
+.complete span {
+  padding: 20px 32px;
+  border: 1px solid rgba(111, 91, 73, 0.24);
+  border-radius: 8px;
+  background: rgba(255, 251, 238, 0.92);
+  box-shadow: 0 20px 46px rgba(83, 65, 52, 0.18);
+  font-size: clamp(2rem, 8vw, 5.5rem);
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 760px) {
+  .ending {
+    min-height: 540px;
+  }
+
+  .story-panel {
+    left: 14px;
+    right: 14px;
+    bottom: 84px;
+  }
+
+  .next-button {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}
