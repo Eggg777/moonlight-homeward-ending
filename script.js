@@ -50,6 +50,8 @@ function fitCanvas() {
   canvas.width = Math.floor(window.innerWidth * ratio);
   canvas.height = Math.floor(window.innerHeight * ratio);
   ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
 }
 
 function renderText() {
@@ -79,12 +81,35 @@ function loop() {
 }
 
 function skyGradient(w, h, top, mid, bottom) {
-  const gradient = ctx.createLinearGradient(0, 0, 0, h);
-  gradient.addColorStop(0, top);
-  gradient.addColorStop(0.52, mid);
-  gradient.addColorStop(1, bottom);
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, w, h);
+  const bands = [top, mixColor(top, mid, 0.45), mid, mixColor(mid, bottom, 0.5), bottom];
+  const bandHeight = h / bands.length;
+  bands.forEach((color, i) => {
+    ctx.fillStyle = color;
+    ctx.fillRect(0, i * bandHeight - 2, w, bandHeight + 4);
+  });
+  ctx.save();
+  ctx.globalAlpha = 0.28;
+  for (let y = 18; y < h * 0.62; y += 28) {
+    const color = bands[Math.min(bands.length - 1, Math.floor(y / bandHeight))];
+    crayonWave(0, y, w, color, 9, 2);
+  }
+  ctx.restore();
+}
+
+function mixColor(a, b, t) {
+  const from = hexToRgb(a);
+  const to = hexToRgb(b);
+  const mix = from.map((value, i) => Math.round(value + (to[i] - value) * t));
+  return `rgb(${mix[0]}, ${mix[1]}, ${mix[2]})`;
+}
+
+function hexToRgb(hex) {
+  const clean = hex.replace("#", "");
+  return [
+    parseInt(clean.slice(0, 2), 16),
+    parseInt(clean.slice(2, 4), 16),
+    parseInt(clean.slice(4, 6), 16)
+  ];
 }
 
 function softCircle(x, y, r, color) {
@@ -113,6 +138,24 @@ function crayonLine(x1, y1, x2, y2, color, width = 4, passes = 4) {
   ctx.restore();
 }
 
+function crayonWave(x, y, width, color, strokeWidth = 6, waves = 3) {
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.lineCap = "round";
+  for (let pass = 0; pass < waves; pass += 1) {
+    ctx.globalAlpha = 0.2 + pass * 0.12;
+    ctx.lineWidth = strokeWidth + pass;
+    ctx.beginPath();
+    for (let px = x; px <= x + width; px += 28) {
+      const py = y + Math.sin(px * 0.02 + pass * 1.7) * 5 + Math.cos(px * 0.007) * 3;
+      if (px === x) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
 function crayonOval(x, y, rx, ry, color, outline = "#8f6b55") {
   ctx.save();
   ctx.fillStyle = color;
@@ -126,10 +169,52 @@ function crayonOval(x, y, rx, ry, color, outline = "#8f6b55") {
   ctx.restore();
 }
 
+function crayonBlob(points, fill, outline = "#8b6b4e", width = 6) {
+  ctx.save();
+  ctx.fillStyle = fill;
+  ctx.beginPath();
+  ctx.moveTo(points[0][0], points[0][1]);
+  for (let i = 1; i < points.length; i += 1) {
+    const current = points[i];
+    const next = points[(i + 1) % points.length];
+    ctx.quadraticCurveTo(current[0], current[1], (current[0] + next[0]) / 2, (current[1] + next[1]) / 2);
+  }
+  ctx.closePath();
+  ctx.fill();
+  ctx.strokeStyle = outline;
+  ctx.globalAlpha = 0.52;
+  ctx.lineWidth = width;
+  ctx.stroke();
+  ctx.restore();
+}
+
+function crayonCloud(x, y, scale = 1) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(scale, scale);
+  crayonOval(-26, 6, 28, 18, "rgba(255, 246, 218, 0.82)", "#c8a47a");
+  crayonOval(0, -2, 34, 24, "rgba(255, 250, 226, 0.86)", "#c8a47a");
+  crayonOval(32, 8, 30, 17, "rgba(255, 246, 218, 0.82)", "#c8a47a");
+  ctx.restore();
+}
+
+function crayonFlower(x, y, scale = 1) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.scale(scale, scale);
+  crayonLine(0, 16, 0, -4, "#579b61", 3, 2);
+  ["#ff8fb1", "#ffc15d", "#87c9ff", "#ff8fb1"].forEach((color, i) => {
+    const angle = (i * Math.PI) / 2;
+    crayonOval(Math.cos(angle) * 8, -8 + Math.sin(angle) * 8, 8, 6, color, "#8b6b4e");
+  });
+  crayonOval(0, -8, 5, 5, "#ffe36f", "#8b6b4e");
+  ctx.restore();
+}
+
 function paperTexture(w, h) {
   ctx.save();
-  ctx.globalCompositeOperation = "soft-light";
-  ctx.strokeStyle = "rgba(121, 86, 55, 0.08)";
+  ctx.globalCompositeOperation = "multiply";
+  ctx.strokeStyle = "rgba(121, 86, 55, 0.07)";
   ctx.lineWidth = 1;
   for (let y = 12; y < h; y += 22) {
     ctx.beginPath();
@@ -145,8 +230,8 @@ function paperTexture(w, h) {
 
 function crayonSpeckles(w, h) {
   ctx.save();
-  ctx.globalAlpha = 0.1;
-  for (let i = 0; i < 95; i += 1) {
+  ctx.globalAlpha = 0.16;
+  for (let i = 0; i < 180; i += 1) {
     const x = (i * 97) % w;
     const y = (i * 53) % h;
     ctx.fillStyle = i % 3 === 0 ? "#ffffff" : i % 3 === 1 ? "#9f765a" : "#d6a054";
@@ -167,6 +252,10 @@ function hill(y, color, lift = 0) {
   ctx.lineTo(w, h);
   ctx.closePath();
   ctx.fill();
+  ctx.strokeStyle = "rgba(112, 91, 59, 0.34)";
+  ctx.lineWidth = 8;
+  ctx.stroke();
+  crayonWave(0, y + 22, w, "rgba(255, 255, 186, 0.34)", 8, 2);
 }
 
 function grass(w, h, base, count) {
@@ -182,29 +271,29 @@ function drawAdventurer(x, y, scale = 1, facing = 1) {
   ctx.save();
   ctx.translate(x, y);
   ctx.scale(scale * facing, scale);
-  crayonOval(0, -42, 20, 19, "#ffd9bd");
+  crayonOval(0, -47, 28, 26, "#ffd9bd", "#8f6b55");
   ctx.fillStyle = "#6aa6d9";
   ctx.beginPath();
-  ctx.roundRect(-18, -28, 36, 42, 18);
+  ctx.roundRect(-23, -28, 46, 40, 22);
   ctx.fill();
   ctx.strokeStyle = "rgba(89, 91, 124, 0.46)";
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 5;
   ctx.stroke();
   ctx.fillStyle = "#5b6755";
   ctx.beginPath();
-  ctx.roundRect(-14, 8, 10, 23, 5);
-  ctx.roundRect(4, 8, 10, 23, 5);
+  ctx.roundRect(-17, 8, 13, 19, 7);
+  ctx.roundRect(4, 8, 13, 19, 7);
   ctx.fill();
-  crayonLine(18, -11, 35, 12, "#8b6d55", 5, 4);
+  crayonLine(24, -11, 42, 12, "#8b6d55", 7, 5);
   ctx.fillStyle = "#4b3a34";
   ctx.beginPath();
-  ctx.arc(-6, -44, 2, 0, Math.PI * 2);
-  ctx.arc(8, -44, 2, 0, Math.PI * 2);
+  ctx.arc(-9, -50, 3.2, 0, Math.PI * 2);
+  ctx.arc(10, -50, 3.2, 0, Math.PI * 2);
   ctx.fill();
   ctx.strokeStyle = "rgba(89, 61, 50, 0.45)";
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 3;
   ctx.beginPath();
-  ctx.arc(1, -37, 4, 0.1, Math.PI - 0.1);
+  ctx.arc(1, -42, 6, 0.1, Math.PI - 0.1);
   ctx.stroke();
   ctx.restore();
 }
@@ -242,18 +331,28 @@ function drawParticles(cx, cy) {
 }
 
 function drawField(w, h, t) {
-  skyGradient(w, h, "#415a8e", "#93b9d6", "#ffe0a8");
+  skyGradient(w, h, "#5f78b4", "#a9d3e8", "#ffe59d");
+  crayonCloud(w * 0.16, h * 0.18, 1.1);
+  crayonCloud(w * 0.54, h * 0.13, 0.82);
   softCircle(w * 0.8, h * 0.18, 92, "rgba(255,245,184,0.58)");
-  hill(h * 0.64, "#b7d881", 0);
-  hill(h * 0.72, "#8ed06d", 2);
+  hill(h * 0.63, "#c9e87d", 0);
+  hill(h * 0.72, "#91d85f", 2);
   grass(w, h, h * 0.65, 150);
+  for (let i = 0; i < 18; i += 1) crayonFlower((i * 89) % w, h * 0.78 + (i % 5) * 18, 0.7);
   drawParticles(w * 0.72, h * 0.42);
   drawAdventurer(w * 0.43, h * 0.66 + Math.sin(t) * 1.5, 1.05);
 }
 
 function drawPlatform(w, h) {
-  skyGradient(w, h, "#4b4c7d", "#6b7890", "#d4a777");
+  skyGradient(w, h, "#6664a0", "#8295ae", "#ffc982");
+  crayonCloud(w * 0.22, h * 0.2, 0.78);
   softCircle(w * 0.84, h * 0.42, 56 + Math.sin(time) * 3, "rgba(255, 226, 135, 0.66)");
+  crayonBlob(
+    [[-20, h * 0.66], [w * 0.24, h * 0.63], [w * 0.58, h * 0.67], [w + 20, h * 0.64], [w + 20, h * 0.84], [-20, h * 0.84]],
+    "#c99558",
+    "#805b42",
+    7
+  );
   ctx.fillStyle = "#b78655";
   ctx.fillRect(0, h * 0.66, w, h * 0.16);
   ctx.fillStyle = "#8f6847";
@@ -272,16 +371,24 @@ function drawPlatform(w, h) {
 }
 
 function drawTown(w, h) {
-  skyGradient(w, h, "#9cc7da", "#ffd38d", "#fff0bc");
+  skyGradient(w, h, "#aee0eb", "#ffd58f", "#fff2a9");
+  crayonCloud(w * 0.64, h * 0.15, 0.72);
   softCircle(w * 0.2, h * 0.2, 140, "rgba(255, 232, 125, 0.56)");
-  ctx.fillStyle = "#d8ac76";
-  ctx.fillRect(0, h * 0.67, w, h * 0.33);
+  crayonBlob(
+    [[0, h * 0.69], [w * 0.25, h * 0.65], [w * 0.52, h * 0.7], [w * 0.8, h * 0.66], [w, h * 0.7], [w, h], [0, h]],
+    "#dfb374",
+    "#9c7052",
+    7
+  );
   for (let i = 0; i < 5; i += 1) {
     const x = i * w * 0.23 - 40;
     ctx.fillStyle = i % 2 ? "#ffd09a" : "#ffe3ad";
     ctx.beginPath();
     ctx.roundRect(x, h * 0.34, w * 0.18, h * 0.34, 14);
     ctx.fill();
+    ctx.strokeStyle = "rgba(128, 86, 70, 0.36)";
+    ctx.lineWidth = 5;
+    ctx.stroke();
     ctx.fillStyle = "#a36a5d";
     ctx.beginPath();
     ctx.moveTo(x - 12, h * 0.35);
@@ -302,9 +409,13 @@ function drawTown(w, h) {
 }
 
 function drawRoom(w, h) {
-  skyGradient(w, h, "#ffd68a", "#ffe9b9", "#fff8d8");
-  ctx.fillStyle = "#e5bd7b";
-  ctx.fillRect(0, h * 0.72, w, h * 0.28);
+  skyGradient(w, h, "#ffc872", "#ffe6a5", "#fff7c8");
+  crayonBlob(
+    [[0, h * 0.72], [w * 0.2, h * 0.69], [w * 0.48, h * 0.74], [w * 0.76, h * 0.7], [w, h * 0.73], [w, h], [0, h]],
+    "#eec67e",
+    "#9b7450",
+    7
+  );
   ctx.fillStyle = "#ffd89d";
   ctx.beginPath();
   ctx.roundRect(w * 0.12, h * 0.12, w * 0.28, h * 0.32, 18);
